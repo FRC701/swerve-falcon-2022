@@ -27,6 +27,8 @@ class swerveModule {
   enum class DataType {kCurrentAngle, kCurrentVelocity, kTargetAngle};
   double DashboardInfo(const DataType& type);
 
+  double PositionInfo();
+
  private:
   ctre::phoenix::motorcontrol::can::WPI_TalonFX m_motorDrive;
   ctre::phoenix::motorcontrol::can::WPI_TalonFX m_motorTurn;

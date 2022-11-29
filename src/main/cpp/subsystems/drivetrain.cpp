@@ -44,6 +44,12 @@ void drivetrain::Periodic() {
     frc::SmartDashboard::PutNumber("Front Left Angle", m_frontLeft.DashboardInfo(swerveModule::DataType::kCurrentAngle));
     frc::SmartDashboard::PutNumber("Rear Left Angle", m_rearLeft.DashboardInfo(swerveModule::DataType::kCurrentAngle));
 
+    frc::SmartDashboard::PutNumber("Front Right Angle Pos", m_frontRight.PositionInfo());
+    frc::SmartDashboard::PutNumber("Rear Right Angle Pos", m_rearRight.PositionInfo());
+    frc::SmartDashboard::PutNumber("Front Left Angle Pos", m_frontLeft.PositionInfo());
+    frc::SmartDashboard::PutNumber("Rear Left Angle Pos", m_rearLeft.PositionInfo());
+
+
     frc::SmartDashboard::PutNumber("Front Right TARGET", m_frontRight.DashboardInfo(swerveModule::DataType::kTargetAngle));
     frc::SmartDashboard::PutNumber("Rear Right TARGET", m_rearRight.DashboardInfo(swerveModule::DataType::kTargetAngle));
     frc::SmartDashboard::PutNumber("Front Left TARGET", m_frontLeft.DashboardInfo(swerveModule::DataType::kTargetAngle));

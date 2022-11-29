@@ -31,9 +31,9 @@ void swerveModule::ConfigModule(const ConfigType& type) {
         case ConfigType::motorTurn :
             m_motorTurn.ConfigFactoryDefault();
             m_motorTurn.ConfigAllSettings(m_settings.motorTurn);
-            /*m_motorTurn.ConfigRemoteFeedbackFilter(m_encoderTurn.GetDeviceNumber(),
+            m_motorTurn.ConfigRemoteFeedbackFilter(m_encoderTurn.GetDeviceNumber(),
                                                    ctre::phoenix::motorcontrol::
-                                                   RemoteSensorSource::RemoteSensorSource_CANCoder, 0, 50);*/
+                                                   RemoteSensorSource::RemoteSensorSource_CANCoder, 0, 50);
             m_motorTurn.SetInverted(ctre::phoenix::motorcontrol::TalonFXInvertType::CounterClockwise);
             m_motorTurn.SelectProfileSlot(0, 0);
             break;
@@ -70,13 +70,14 @@ void swerveModule::SetDesiredState(const frc::SwerveModuleState& referenceState)
     units::native_units_per_decisecond_t targetMotorSpeed{
         (targetWheelSpeed * drivetrainConstants::calculations::kFinalDriveRatio)
         / drivetrainConstants::calculations::kWheelCircumference};
-    
-   m_motorDrive.Set(ControlMode::Velocity, targetMotorSpeed.value());
+
+   m_motorDrive.Set(ctre::phoenix::motorcontrol::TalonFXControlMode::Velocity, targetMotorSpeed.value());
     //std::cout << targetMotorSpeed.value() << "-target_SPEED\n";
                 frc::SmartDashboard::PutNumber("TMS", targetMotorSpeed.value());
-                frc::SmartDashboard::PutNumber("AMS", m_motorDrive.GetSelectedSensorVelocity());
-    m_motorTurn.Set(ControlMode::Velocity, turnOutput);
-                frc::SmartDashboard::PutNumber("ARMS", m_motorTurn.GetSelectedSensorVelocity());
+                //frc::SmartDashboard::PutNumber("AMS", 360.0/4096.0*m_motorDrive.GetSensorCollection().GetIntegratedSensorAbsolutePosition());
+    //m_motorTurn.GetSensorCollection().SetIntegratedSensorPosition(turnOutput);
+    m_motorTurn.Set(ctre::phoenix::motorcontrol::TalonFXControlMode::Position, turnOutput);
+                frc::SmartDashboard::PutNumber("ARMS", 360.0/4096.0*remainder(m_motorTurn.GetSelectedSensorPosition(), 4096));
                 frc::SmartDashboard::PutNumber("turnOutput", turnOutput);
   // m_motorTurn.SetSelectedSensorPosition(turnOutput);
     //std::cout << turnOutput << "u\n";
@@ -115,7 +116,7 @@ double swerveModule::DashboardInfo(const DataType& type) {
     switch(type) {
         case DataType::kCurrentAngle :
             //frc::SmartDashboard::PutNumber("Desired Angle", 0.087890625*remainder(m_motorTurn.GetSelectedSensorPosition(), 4096).value());
-            frc::SmartDashboard::PutNumber("nue", m_motorTurn.GetSelectedSensorPosition());
+            //frc::SmartDashboard::PutNumber("nue", m_motorTurn.GetSelectedSensorPosition());
             return {units::degree_t(frc::AngleModulus(units::degree_t(/*m_encoderTurn.GetPosition()*/0.087890625*remainder(m_motorTurn.GetSelectedSensorPosition(), 4096)))).value()};
         /*case DataType::kCurrentVelocity :
             units::native_units_per_decisecond_t motorSpeed{m_motorDrive.GetSelectedSensorVelocity(0)};
@@ -129,3 +130,8 @@ double swerveModule::DashboardInfo(const DataType& type) {
             throw std::invalid_argument("Invalid DashboardInfo DataType");
     }
 }
+
+
+double swerveModule::PositionInfo() {
+    return m_motorTurn.GetSensorCollection().GetIntegratedSensorAbsolutePosition();
+    }

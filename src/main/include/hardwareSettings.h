@@ -51,7 +51,7 @@ class hardwareSettings {
         motorDrive.initializationStrategy = ctre::phoenix::sensors::SensorInitializationStrategy::BootToAbsolutePosition;
 
         //TalonFX
-        motorTurn.primaryPID.selectedFeedbackSensor = ctre::phoenix::motorcontrol::FeedbackDevice::RemoteSensor0;
+        //motorTurn.primaryPID.selectedFeedbackSensor = ctre::phoenix::motorcontrol::FeedbackDevice::RemoteSensor0;
         motorTurn.primaryPID.selectedFeedbackCoefficient = 1.0;
         motorTurn.closedloopRamp = 1.0;
         motorTurn.peakOutputForward = 0.20F; //0.15
