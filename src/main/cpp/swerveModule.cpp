@@ -36,6 +36,7 @@ void swerveModule::ConfigModule(const ConfigType& type) {
                                                    RemoteSensorSource::RemoteSensorSource_CANCoder, 0, 50);
             m_motorTurn.SetInverted(ctre::phoenix::motorcontrol::TalonFXInvertType::CounterClockwise);
             m_motorTurn.SelectProfileSlot(0, 0);
+            m_motorTurn.ConfigIntegratedSensorOffset(m_encoderOffset);
             break;
         case ConfigType::encoderTurn :
            // m_motorTurn.ConfigFactoryDefault();
