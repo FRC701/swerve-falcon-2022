@@ -44,21 +44,21 @@ namespace drivetrainConstants {
     }
 
     namespace swerveModules {
-        constexpr double kModuleFrontRight[4]{kMotorDriveFrontRightID,
+        constexpr double kModuleFrontRight[3]{kMotorDriveFrontRightID,
                                                    kMotorTurnFrontRightID,
-                                                   kEncoderTurnFrontRightID,
+                                                   //kEncoderTurnFrontRightID,
                                                    offsets::kFrontRight};
-        constexpr double kModuleRearRight[4]{kMotorDriveRearRightID,
+        constexpr double kModuleRearRight[3]{kMotorDriveRearRightID,
                                                   kMotorTurnRearRightID,
-                                                  kEncoderTurnRearRightID,
+                                                  //kEncoderTurnRearRightID,
                                                   offsets::kRearRight};
-        constexpr double kModuleFrontLeft[4]{kMotorDriveFrontLeftID,
+        constexpr double kModuleFrontLeft[3]{kMotorDriveFrontLeftID,
                                                   kMotorTurnFrontLeftID,
-                                                  kEncoderTurnFrontLeftID,
+                                                  //kEncoderTurnFrontLeftID,
                                                   offsets::kFrontLeft};
-        constexpr double kModuleRearLeft[4]{kMotorDriveRearLeftID,
+        constexpr double kModuleRearLeft[3]{kMotorDriveRearLeftID,
                                                  kMotorTurnRearLeftID,
-                                                 kEncoderTurnRearLeftID,
+                                                 //kEncoderTurnRearLeftID,
                                                  offsets::kRearLeft};
     }
 

@@ -9,18 +9,19 @@ using ControlMode = ctre::phoenix::motorcontrol::ControlMode;
 
 swerveModule::swerveModule(const double module[])
     : m_motorDrive(module[0]), m_motorTurn(module[1]),
-      m_encoderTurn(module[2]), m_encoderOffset(module[3]) {
+      /*m_encoderTurn(module[2]), */m_encoderOffset(module[2]) {
     std::cout << "\nFor module #" << module[0] << ":\n";
     std::cout << m_motorDrive.GetDeviceID() << " - drive Falcon ID.\n";
     std::cout << m_motorTurn.GetDeviceID() << " - turn Falcon ID.\n";
-    std::cout << m_encoderTurn.GetDeviceNumber() << " - CANCoder for steering.\n\n";
+    //std::cout << m_encoderTurn.GetDeviceNumber() << " - CANCoder for steering.\n\n";
     ConfigModule(ConfigType::motorDrive);
     ConfigModule(ConfigType::motorTurn);   
-    ConfigModule(ConfigType::encoderTurn);
+    //ConfigModule(ConfigType::encoderTurn);
 }
 
 void swerveModule::ConfigModule(const ConfigType& type) {
-    switch(type) {
+    switch(type)
+{
         case ConfigType::motorDrive :
             m_motorDrive.ConfigFactoryDefault();
             m_motorDrive.ConfigAllSettings(m_settings.motorDrive);
@@ -31,19 +32,21 @@ void swerveModule::ConfigModule(const ConfigType& type) {
         case ConfigType::motorTurn :
             m_motorTurn.ConfigFactoryDefault();
             m_motorTurn.ConfigAllSettings(m_settings.motorTurn);
-            m_motorTurn.ConfigRemoteFeedbackFilter(m_encoderTurn.GetDeviceNumber(),
+            std::cout << m_encoderOffset << " - OffSet\n";
+            std::cout << m_motorTurn.ConfigIntegratedSensorOffset(m_encoderOffset) << " - Is OffSet Working?\n";
+            /*m_motorTurn.ConfigRemoteFeedbackFilter(m_encoderTurn.GetDeviceNumber(),
                                                    ctre::phoenix::motorcontrol::
-                                                   RemoteSensorSource::RemoteSensorSource_CANCoder, 0, 50);
+                                                   RemoteSensorSource::RemoteSensorSource_CANCoder, 0, 50);*/
             m_motorTurn.SetInverted(ctre::phoenix::motorcontrol::TalonFXInvertType::CounterClockwise);
             m_motorTurn.SelectProfileSlot(0, 0);
             m_motorTurn.ConfigIntegratedSensorOffset(m_encoderOffset);
             break;
-        case ConfigType::encoderTurn :
-           // m_motorTurn.ConfigFactoryDefault();
+        //case ConfigType::encoderTurn :
+           /* m_motorTurn.ConfigFactoryDefault();
             m_encoderTurn.ConfigFactoryDefault();
             m_encoderTurn.ConfigAllSettings(m_settings.encoderTurn);
-            m_encoderTurn.ConfigMagnetOffset(m_encoderOffset);
-            break;
+            m_encoderTurn.ConfigMagnetOffset(m_encoderOffset);*/
+            //break;
         default :
             throw std::invalid_argument("Invalid swerveModule ConfigType");
     }
@@ -76,8 +79,8 @@ void swerveModule::SetDesiredState(const frc::SwerveModuleState& referenceState)
     //std::cout << targetMotorSpeed.value() << "-target_SPEED\n";
                 frc::SmartDashboard::PutNumber("TMS", targetMotorSpeed.value());
                 //frc::SmartDashboard::PutNumber("AMS", 360.0/4096.0*m_motorDrive.GetSensorCollection().GetIntegratedSensorAbsolutePosition());
-    //m_motorTurn.GetSensorCollection().SetIntegratedSensorPosition(turnOutput);
     m_motorTurn.Set(ctre::phoenix::motorcontrol::TalonFXControlMode::Position, turnOutput);
+                //std::cout <<  m_motorTurn.SetSelectedSensorPosition(turnOutput) << " - SetPos\n";
                 frc::SmartDashboard::PutNumber("ARMS", 360.0/4096.0*remainder(m_motorTurn.GetSelectedSensorPosition(), 4096));
                 frc::SmartDashboard::PutNumber("turnOutput", turnOutput);
   // m_motorTurn.SetSelectedSensorPosition(turnOutput);

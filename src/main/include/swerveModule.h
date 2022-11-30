@@ -15,7 +15,7 @@ class swerveModule {
  public:
   swerveModule(const double module[]);
 
-  enum class ConfigType {motorDrive, motorTurn, encoderTurn};
+  enum class ConfigType {motorDrive, motorTurn/*, encoderTurn*/};
   void ConfigModule(const ConfigType& type);
 
   frc::SwerveModuleState GetState();
@@ -32,7 +32,7 @@ class swerveModule {
  private:
   ctre::phoenix::motorcontrol::can::WPI_TalonFX m_motorDrive;
   ctre::phoenix::motorcontrol::can::WPI_TalonFX m_motorTurn;
-  ctre::phoenix::sensors::WPI_CANCoder m_encoderTurn;
+  //ctre::phoenix::sensors::WPI_CANCoder m_encoderTurn;
   const double m_encoderOffset;
   double m_targetAngle;
 

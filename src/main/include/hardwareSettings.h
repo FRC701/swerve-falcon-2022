@@ -11,7 +11,7 @@ class hardwareSettings {
 	hardwareSettings() {
 
         //CanCoder
-        motorTurn.velocityMeasurementPeriod = ctre::phoenix::sensors::SensorVelocityMeasPeriod::Period_100Ms;
+        /*motorTurn.velocityMeasurementPeriod = ctre::phoenix::sensors::SensorVelocityMeasPeriod::Period_100Ms;
         encoderTurn.velocityMeasurementPeriod = ctre::phoenix::sensors::SensorVelocityMeasPeriod::Period_100Ms;
         //encoderTurn.velocityMeasurementWindow = 64;
         motorTurn.absoluteSensorRange = ctre::phoenix::sensors::AbsoluteSensorRange::Signed_PlusMinus180;
@@ -21,7 +21,7 @@ class hardwareSettings {
         encoderTurn.initializationStrategy = ctre::phoenix::sensors::SensorInitializationStrategy::BootToAbsolutePosition;
         encoderTurn.sensorCoefficient = 360.0 / 4096.0;
         encoderTurn.unitString = std::string("deg");
-        encoderTurn.sensorTimeBase = ctre::phoenix::sensors::SensorTimeBase::PerSecond;
+        encoderTurn.sensorTimeBase = ctre::phoenix::sensors::SensorTimeBase::PerSecond;*/
 
         //TalonFX
         motorDrive.primaryPID.selectedFeedbackSensor = ctre::phoenix::motorcontrol::FeedbackDevice::IntegratedSensor;
@@ -71,6 +71,7 @@ class hardwareSettings {
         //motorTurn.slot0.closedLoopPeriod = 1;
         //motorTurn.motionCruiseVelocity = 500;
         //motorTurn.motionAcceleration = 500;
+        motorTurn.absoluteSensorRange = ctre::phoenix::sensors::AbsoluteSensorRange::Signed_PlusMinus180;
         motorTurn.remoteSensorClosedLoopDisableNeutralOnLOS = false;
         ctre::phoenix::motorcontrol::SupplyCurrentLimitConfiguration supplyLimitB(true, 23.1, 25, 1.4);
         //motorTurn.supplyCurrLimit = supplyLimitB;
