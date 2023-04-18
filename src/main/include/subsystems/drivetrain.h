@@ -16,7 +16,7 @@ class drivetrain : public frc2::SubsystemBase {
 
   void SwerveDrive(units::meters_per_second_t xSpeed,
                    units::meters_per_second_t ySpeed,
-                   units::radians_per_second_t zRot,
+                   units::radian_t zRot,
                    bool fieldRelative);
 
   void UpdateOdometry();

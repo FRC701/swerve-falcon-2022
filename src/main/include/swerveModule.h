@@ -6,10 +6,10 @@
 #include <units/angular_velocity.h>
 #include <units/time.h>
 #include <units/velocity.h>
-#include <wpi/numbers>
-
 #include "Constants.h"
 #include "hardwareSettings.h"
+
+using namespace std;
 
 class swerveModule {
  public:

@@ -4,7 +4,6 @@
 #include <units/length.h>
 #include <units/time.h>
 #include <units/velocity.h>
-#include <wpi/numbers>
 
 /**
  * This header contains hold robot-wide numerical or boolean constants ONLY.
@@ -14,7 +13,7 @@
  */
 
 namespace controllerConstants {
-    //USB port addresses on drivestation PC.
+    //USB port address  es on drivestation PC.
     constexpr int kControllerMainID = 0;
     constexpr int kControllerAuxID = 1;
 }
@@ -64,13 +63,13 @@ namespace drivetrainConstants {
 
     namespace calculations {
         constexpr auto kFinalDriveRatio{6.75 * 360_deg};
-        constexpr units::length::inch_t kWheelCircumference = {2 * wpi::numbers::pi * 3.8_in / 2};
+        constexpr units::length::inch_t kWheelCircumference = {2 * std::numbers::pi * 3.8_in / 2};
 
         constexpr auto kModuleMaxSpeed{16.3_fps};
         constexpr auto kChassisMaxSpeed{16.3_fps};
 
-        constexpr auto kModuleMaxAngularVelocity{wpi::numbers::pi * 1_rad_per_s};  // radians per second
-        constexpr auto kModuleMaxAngularAcceleration{wpi::numbers::pi * 2_rad_per_s / 1_s};  // radians per second^2
+        constexpr auto kModuleMaxAngularVelocity{std::numbers::pi * 1_rad_per_s};  // radians per second
+        constexpr auto kModuleMaxAngularAcceleration{std::numbers::pi * 2_rad_per_s / 1_s};  // radians per second^2
 
         constexpr double kMotorMaxOutput = 0.5;
         constexpr double kMotorDeadband = 0.1;

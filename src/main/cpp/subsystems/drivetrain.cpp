@@ -8,7 +8,7 @@ drivetrain::drivetrain() {
 
 void drivetrain::SwerveDrive(units::meters_per_second_t xSpeed,
                              units::meters_per_second_t ySpeed,
-                             units::radians_per_second_t zRot,
+                             units::radian_t zRot,
                              bool fieldRelative) {
     auto moduleStates = m_kinematics.ToSwerveModuleStates(
         fieldRelative ? frc::ChassisSpeeds::FromFieldRelativeSpeeds(
